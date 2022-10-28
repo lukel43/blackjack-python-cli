@@ -20,7 +20,7 @@ class blackjack():
         display.welcome_msg()
         # Prompt user for and set amount of chips to play with
         chips.set_total(display.prompt_chips())
-        print(f"Chips:", chips.get_total())
+        display.out_chips(chips.get_total())
 
         while playing and chips.get_total() > 0:
             self.deck = deck()
@@ -60,8 +60,10 @@ class blackjack():
                     self.show_blackjack(player_blackjack, dealer_blackjack)
                     if player_blackjack:
                         chips.won_blackjack()
+                        display.out_chips(chips.get_total())
                     if dealer_blackjack:
                         chips.lost_bet()
+                        display.out_chips(chips.get_total())
                 else:
                     hit = input("Hit or Stand(h/s)?").lower()
                     print()
@@ -81,6 +83,7 @@ class blackjack():
                             print("You went over, dealer wins.")
                             game_over = True
                             chips.lost_bet()
+                            display.out_chips(chips.get_total())
 
                     else:
                         player_val = self.player_hand.get_value()
@@ -97,6 +100,7 @@ class blackjack():
                                 print("The dealer went over, you win!")
                                 game_over = True
                                 chips.won_bet()
+                                display.out_chips(chips.get_total())
 
                         if not game_over:
                             print("Calculating...")
@@ -107,11 +111,14 @@ class blackjack():
                             if player_val > dealer_val:
                                 print("YOU WIN!!!")
                                 chips.won_bet()
+                                display.out_chips(chips.get_total())
+
                             elif player_val == dealer_val:
                                 print("You tied!")
                             else:
                                 print("Dealer wins.")
                                 chips.lost_bet()
+                                display.out_chips(chips.get_total())
                             game_over = True
 
             if chips.get_total() > 0:
