@@ -1,3 +1,5 @@
+from card import card
+
 class hand:
     def __init__(self, dealer=False):
         self.dealer = dealer

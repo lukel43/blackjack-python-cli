@@ -2,19 +2,24 @@ from chips import chips
 from card import card
 from deck import deck
 from hand import hand
+from display import display
 
 import random
 
 
 
 class blackjack():
+    """Class that executes the logic and calls the classes necessary to run blackjack."""
     def __init__(self):
         pass
 
     def play(self):
+        """Function initiates the blackjack game and runs the logic"""
+        # Flag to continue playing
         playing = True
-        print("BLACKJACK")
-        print("=========")
+        display.welcome_msg()
+        # Prompt user for and set amount of chips to play with
+        chips.set_total(display.prompt_chips())
         print(f"Chips:", chips.get_total())
 
         while playing and chips.get_total() > 0:
@@ -150,109 +155,7 @@ class blackjack():
 
     def dealer_over_21(self):
         return self.dealer_hand.get_value() > 21
-class card:
-    def __init__(self, suit, value):
-        self.suit = suit
-        self.val = value
 
-    def __repr__(self):
-        return " of ".join((self.val, self.suit))
-
-class deck:
-    def __init__(self):
-        self.cards = []
-        self.create()
-
-    def create(self):
-        for s in ["Spades", "Clubs", "Hearts", "Diamonds"]:
-            for v in ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]:
-                self.cards.append(card(s, v))
-
-    def shuffle(self):
-        if len(self.cards) > 1:
-            random.shuffle(self.cards)
-
-    def deal(self):
-        if len(self.cards) > 1:
-            return self.cards.pop(0)
-
-class hand:
-    def __init__(self, dealer=False):
-        self.dealer = dealer
-        self.cards = []
-        self.value = 0
-
-    def add_to_hand(self, card):
-        self.cards.append(card)
-
-
-    def find_value(self):
-        self.value = 0
-        has_ace = False
-        for card in self.cards:
-            if card.val.isnumeric():
-                self.value += int(card.val)
-            else:
-                if card.val == "A":
-                    has_ace = True
-                    self.value += 11
-                else:
-                    self.value += 10
-
-        if has_ace and self.value > 21:
-            self.value -= 10
-
-    def get_value(self):
-        self.find_value()
-        return self.value
-
-    def show_hand(self):
-        if self.dealer:
-            print("hidden")
-            for i in range(1, len(self.cards)):
-                print(self.cards[i])
-            print()
-        else:
-            for card in self.cards:
-                print(card)
-            print("Value:", self.get_value())
-
-class chips:
-    def __init__(self):
-        self.total = 500
-        self.bet = 0
-
-    def won_bet(self):
-        self.total += self.bet
-        print(f"You won {self.bet} chips.")
-        print("Chips:", self.total)
-
-    def won_blackjack(self):
-        self.total += (1.5 * self.bet)
-        print(f"You won {(self.bet * 1.5)} chips")
-        print("Chips:", self.total)
-
-    def lost_bet(self):
-        self.total -= self.bet
-        print(f"You lost {self.bet} chips!")
-        print("Chips:", self.total)
-
-    def take_bet(self):
-        temp = int(input("How many chips would you like to bet?"))
-        if self.total >= temp:
-            self.bet = temp
-        else:
-            print("Your bet must be lower than your total!")
-            self.bet = int(input("How many chips would you like to bet?"))
-
-    def double_down(self):
-        if (self.bet * 2) <= self.total:
-            self.bet *= 2
-        else:
-            print("You dont have enough chips to double down!")
-    def get_total(self):
-        return self.total
-
-chips = chips()
+chips = chips(500)
 blackjack = blackjack()
 blackjack.play()

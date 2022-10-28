@@ -1,7 +1,10 @@
 class chips:
-    def __init__(self):
-        self.total = 500
+    def __init__(self, total):
+        self.total = total
         self.bet = 0
+
+    def set_total(self, new_total):
+        self.total = int(new_total)
 
     def won_bet(self):
         self.total += self.bet
