@@ -6,4 +6,5 @@ class card:
         self.val = value
 
     def __repr__(self):
+        """Display the card is (Value) of (Suit) format."""
         return " of ".join((self.val, self.suit))

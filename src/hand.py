@@ -7,10 +7,12 @@ class hand:
         self.value = 0
 
     def add_to_hand(self, card):
+        """Add a card to the players hand."""
         self.cards.append(card)
 
 
     def find_value(self):
+        """Find the point value of a hand."""
         self.value = 0
         has_ace = False
         for card in self.cards:
@@ -27,10 +29,12 @@ class hand:
             self.value -= 10
 
     def get_value(self):
+        """Get the value of a hand."""
         self.find_value()
         return self.value
 
     def show_hand(self):
+        """Show the player's and dealer's hand.""" 
         if self.dealer:
             print("hidden")
             for i in range(1, len(self.cards)):

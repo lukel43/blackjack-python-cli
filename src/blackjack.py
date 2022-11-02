@@ -14,7 +14,7 @@ class blackjack():
         pass
 
     def play(self):
-        """Function initiates the blackjack game and runs the logic"""
+        """Function initiates the blackjack game and runs the logic."""
         # Flag to continue playing
         playing = True
         display.welcome_msg()
@@ -139,6 +139,7 @@ class blackjack():
                 playing = False
 
     def check_blackjack(self):
+        """Check if either hand blackjack (21)."""
         player = False
         dealer = False
         if self.player_hand.get_value() == 21:
@@ -149,6 +150,7 @@ class blackjack():
         return player, dealer
 
     def show_blackjack(self, player_blackjack, dealer_blackjack):
+        """Display when either the player or dealer gets blackjack."""
         if player_blackjack and dealer_blackjack:
             print("You and the dealer have blackjack! Draw!")
         elif player_blackjack:
@@ -158,11 +160,16 @@ class blackjack():
         print()
 
     def player_over_21(self):
+        """Check if the player's hand is over 21"""
         return self.player_hand.get_value() > 21
 
     def dealer_over_21(self):
+        """Check if the dealer's hand is over 21"""
         return self.dealer_hand.get_value() > 21
 
+# Default for chips
 chips = chips(500)
+# Initiate blackjack object
 blackjack = blackjack()
+# Start a game of blackjack
 blackjack.play()
